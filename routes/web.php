@@ -6,6 +6,7 @@ use App\Http\Controllers\ForgotPasswordManager;
 use App\Http\Controllers\TShirtController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -14,10 +15,14 @@ use App\Http\Controllers\Admin\SliderController;
 
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/collections', [FrontendController::class, 'categories']);
 Route::get('/collections/{category_slug}', [FrontendController::class, 'products']);
+Route::get('/collections/{category_slug}/{product_slug}', [FrontendController::class, 'productView']);
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('wishlist', [WishlistController::class, 'index']);
+});
 
 
 Route::get('/login', [AuthManager::class, 'login'])->name('login');
@@ -80,7 +85,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
     Route::get('sliders/create', [SliderController::class, 'create']);
     Route::post('sliders/create', [SliderController::class, 'store']);
     Route::get('sliders/{slider}/edit', [SliderController::class, 'edit']);
-
+    Route::put('sliders/{slider}', [SliderController::class, 'update']);
+    Route::get('sliders/{slider}/delete', [SliderController::class, 'destroy']);
 
 
 });

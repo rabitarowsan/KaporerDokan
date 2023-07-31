@@ -10,11 +10,10 @@ class TShirt extends Model
     protected $table = 'tshirts'; // Update the table name to match the database table name
 
     protected $fillable = [
+        'user_id',
         'tshirt_type',
         'tshirt_length',
-        'color1',
-        'color2',
-        'color3',
+        'color',
         'print_positions',
         'image_path',
         'user_text',

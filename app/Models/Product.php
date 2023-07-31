@@ -36,6 +36,10 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand', 'id');
+    }
 
     public function productImages()
     {
@@ -46,4 +50,6 @@ class Product extends Model
     {
         return $this->hasMany(ProductColor::class, 'product_id', 'id');
     }
+
+
 }

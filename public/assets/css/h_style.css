@@ -25,10 +25,11 @@ header {
 .logo {
   color: #333;
   text-decoration: none;
-  font-size: 2em;
+  font-size: 1.6em;
   font-weight: 200;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  
 }
 
 .group {
@@ -39,17 +40,23 @@ header {
 header ul {
   position: relative;
   display: flex;
-  gap: 30px;
+  gap: 15px;
 }
 
 header ul li {
   list-style: none;
+  
+}
+
+.group.active-search .dropdown-menu,
+.group.active-search .user-dropdown-menu {
+  display: none;
 }
 
 header ul li a {
   position: relative;
   text-decoration: none;
-  font-size: 1em;
+  font-size: 0.8em;
   color: #333;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -179,6 +186,10 @@ header .search {
     font-size: 1.25em;
   }
 
+  header ul li a {
+    font-size: 0.8em; /* Decrease the font size for smaller screens */
+  }
+
   .hide {
     display: none;
   }
@@ -186,6 +197,7 @@ header .search {
 
 header .dropdown {
   position: relative;
+  z-index: 1000;
 }
 
 header .dropdown .dropdown-menu {
@@ -196,6 +208,7 @@ header .dropdown .dropdown-menu {
   background-color: #f9f9f9;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
+  z-index: 999;
 }
 
 header .dropdown:hover .dropdown-menu {

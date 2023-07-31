@@ -19,7 +19,18 @@ class TShirtController extends Controller
         $tshirt->color2 = $request->input('color2');
         $tshirt->color3 = $request->input('color3');
         $tshirt->print_positions = implode(',', $request->input('print_position'));
-        $tshirt->image_path = ''; // Set the image path if you're storing the image
+
+        $uploadPath = 'uploads/customtshirt/';
+
+        if($request->hasFile('image')){
+
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time().'.'.$ext;
+            $file->move('uploads/customtshirt/', $filename);
+            $tshirt->image = $uploadPath.$filename;
+        }
+
         $tshirt->user_text = $request->input('user_text');
         $tshirt->save();
 
@@ -27,6 +38,7 @@ class TShirtController extends Controller
     }
     public function showForm()
         {
+            
             return view('tshirts.upload');
         }
 }

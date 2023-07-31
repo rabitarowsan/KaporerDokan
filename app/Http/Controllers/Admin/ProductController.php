@@ -36,11 +36,12 @@ class ProductController extends Controller
         $validatedData = $request->validated();
 
         $category = Category::findOrFail($validatedData['category_id']);
+        $brand = Brand::find($validatedData['brand']);
         $product = $category->products()->create([
             'category_id' => $validatedData['category_id'],
             'name' => $validatedData['name'],
             'slug' => Str::slug($validatedData['slug']),
-            'brand' => $validatedData['brand'],
+            'brand' => $brand ? $brand->name : null,
             'small_description' => $validatedData['small_description'],
             'description' => $validatedData['description'],
             'original_price' => $validatedData['original_price'],
@@ -98,6 +99,9 @@ class ProductController extends Controller
     public function update(ProductFormRequest $request, int $product_id)
     {
         $validatedData = $request->validated();
+        $brand = Brand::find($validatedData['brand']);
+        $brandName = $brand ? $brand->name : null;
+
         $product = Category::findOrFail($validatedData['category_id'])
                     ->products()->where('id', $product_id)->first();
         if($product)

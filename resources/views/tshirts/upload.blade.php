@@ -28,11 +28,12 @@
             <option value="full">Full Sleeve</option>
             <option value="half">Half Sleeve</option>
           </select>
-          <div class="color-options">
+
+          
+
+          <div class="color-options pt-2 pb-1">
             <label for="color">Choose a color:</label>
-            <input type="color" id="color1" name="color1" value="#F44336">
-            <input type="color" id="color2" name="color2" value="#E91E63">
-            <input type="color" id="color3" name="color3" value="#9C27B0">
+            
             <!-- Add more color options as needed -->
           </div>
           <div class="checkbox-list">

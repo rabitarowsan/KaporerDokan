@@ -1,5 +1,6 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/h_style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
     <header>
@@ -32,6 +33,16 @@
       @endauth
     </ul>
   </li>
+    <li>
+      <a href="{{ url('wishlist') }}">
+        <i class="fa fa-heart"></i>(<livewire:frontend.wishlist-count />)
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="fa fa-shopping-cart"></i>(0)
+      </a>
+    </li>
             
         </ul>
         
@@ -52,34 +63,37 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
     <script>
-    let searchBtn = document.querySelector('.searchBtn');
-    let closeBtn = document.querySelector('.closeBtn');
-    let searchBox = document.querySelector('.searchBox');
-    let navigation = document.querySelector('.navigation');
-    let menuToggle = document.querySelector('.menuToggle');
-    let header = document.querySelector('header');
+      let searchBtn = document.querySelector('.searchBtn');
+      let closeBtn = document.querySelector('.closeBtn');
+      let searchBox = document.querySelector('.searchBox');
+      let group = document.querySelector('.group');
+      let menuToggle = document.querySelector('.menuToggle');
+      let header = document.querySelector('header');
 
-    searchBtn.addEventListener('click', function() {
-        searchBox.classList.add('active');
-        closeBtn.classList.add('active');
-        searchBtn.classList.add('active');
-        menuToggle.classList.add('hide');
-        header.classList.remove('open');
-    });
+      searchBtn.addEventListener('click', function() {
+          searchBox.classList.add('active');
+          closeBtn.classList.add('active');
+          searchBtn.classList.add('active');
+          menuToggle.classList.add('hide');
+          header.classList.remove('open');
+          group.classList.add('active-search'); // Add class to .group when search bar is active
+      });
 
-    closeBtn.addEventListener('click', function() {
-        searchBox.classList.remove('active');
-        closeBtn.classList.remove('active');
-        searchBtn.classList.remove('active');
-        menuToggle.classList.remove('hide');
-    });
+      closeBtn.addEventListener('click', function() {
+          searchBox.classList.remove('active');
+          closeBtn.classList.remove('active');
+          searchBtn.classList.remove('active');
+          menuToggle.classList.remove('hide');
+          group.classList.remove('active-search'); // Remove class from .group when search bar is closed
+      });
 
-    menuToggle.addEventListener('click', function() {
-        header.classList.toggle('open');
-        searchBox.classList.remove('active');
-        closeBtn.classList.remove('active');
-        searchBtn.classList.remove('active');
-    });
+      menuToggle.addEventListener('click', function() {
+          header.classList.toggle('open');
+          searchBox.classList.remove('active');
+          closeBtn.classList.remove('active');
+          searchBtn.classList.remove('active');
+      });
+
     </script>
 
 

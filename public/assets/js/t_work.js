@@ -53,4 +53,29 @@ function changeTshirtImage() {
     tshirtImage.style.backgroundImage = `url(${imageUrl})`;
 }
 
+const dropdown = document.getElementById("tshirt_type");
+
+  // Add event listener to handle hover and click events
+  dropdown.addEventListener("mouseover", showOptions);
+  dropdown.addEventListener("click", selectOption);
+
+  // Function to show dropdown options on hover
+  function showOptions() {
+    dropdown.size = dropdown.options.length;
+  }
+
+  // Function to select an option and keep it selected after click
+  function selectOption() {
+    const selectedOption = dropdown.value;
+    dropdown.size = 1; // Collapse the dropdown back to one visible option
+    // Set a selected attribute for the chosen option
+    for (let i = 0; i < dropdown.options.length; i++) {
+      if (dropdown.options[i].value === selectedOption) {
+        dropdown.options[i].setAttribute("selected", true);
+      } else {
+        dropdown.options[i].removeAttribute("selected");
+      }
+    }
+  }
+
 
