@@ -35,12 +35,12 @@
   </li>
     <li>
       <a href="{{ url('wishlist') }}">
-        <i class="fa fa-heart"></i>(<livewire:frontend.wishlist-count />)
+        <i class="fa fa-heart"></i>(<livewire:frontend.wishlist-count/>)
       </a>
     </li>
     <li>
-      <a href="#">
-        <i class="fa fa-shopping-cart"></i>(0)
+      <a href="url('cart')">
+        <i class="fa fa-shopping-cart"></i>(<livewire:frontend.cart.cart-count />)
       </a>
     </li>
             

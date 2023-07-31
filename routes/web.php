@@ -1,17 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
-use App\Http\Controllers\ForgotPasswordManager;
-use App\Http\Controllers\TShirtController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TShirtController;
+use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\ForgotPasswordManager;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\WishlistController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ColorController;
-use App\Http\Controllers\Admin\SliderController;
 
 
 
@@ -22,6 +24,8 @@ Route::get('/collections/{category_slug}/{product_slug}', [FrontendController::c
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('wishlist', [WishlistController::class, 'index']);
+    Route::get('cart', [CartController::class, 'index']);
+    Route::get('checkout', [CheckoutController::class, 'index']);
 });
 
 
