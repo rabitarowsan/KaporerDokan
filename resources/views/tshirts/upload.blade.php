@@ -16,14 +16,23 @@
       <div class="fieldset-container">
         <fieldset>
           <h2 class="fs-title text-center">Choose your preferred t-shirt type</h2>
-          <h3 class="fs-subtitle">This is step 1</h3>
-          <select name="tshirt_type" id="tshirt_type">
-            <option value="" selected disabled>Select your preferred type</option>
-            <option value="basict">Basic T-Shirt</option>
-            <option value="polot">Polo T-Shirt</option>
-            <option value="dropt">Drop Shoulder</option>
-            <option value="jerseyt">Jersey</option>
-          </select>
+          <div class="tshirt-type-options d-flex justify-content-around mt-4">
+                                    <div class="tshirt-type-option" data-value="basict">
+                                        <img src="{{ asset('uploads/tshirt/basict.png') }}" alt="Basic T-Shirt">
+                                    </div>
+                                    <div class="tshirt-type-option" data-value="polot">
+                                        <img src="{{ asset('uploads/tshirt/polot.png') }}" alt="Polo T-Shirt">
+                                    </div>
+                                    <div class="tshirt-type-option" data-value="dropt">
+                                        <img src="{{ asset('uploads/tshirt/dropt.png') }}" alt="Drop Shoulder">
+                                    </div>
+                                    <div class="tshirt-type-option" data-value="jerseyt">
+                                        <img src="{{ asset('uploads/tshirt/jerseyt.png') }}" alt="Jersey">
+                                    </div>
+                                </div>
+                                <input type="hidden" name="tshirt_type" id="tshirt_type" value="">
+
+
           <select name="tshirt_length" id="tshirt_length">
             <option value="" selected disabled>Select your preferred length</option>
             <option value="full">Full Sleeve</option>

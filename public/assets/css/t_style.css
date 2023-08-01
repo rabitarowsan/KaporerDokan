@@ -250,3 +250,24 @@ body {
 .custom-dropdown.active .color-list {
   display: block;
 }
+
+.tshirt-type-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.tshirt-type-option {
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.tshirt-type-option img {
+  width: 100%;
+  max-height: 150px;
+}
+
+.tshirt-type-option.selected {
+  border-color: blue; /* Add a border color to indicate selection */
+}
+

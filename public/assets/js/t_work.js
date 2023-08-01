@@ -79,6 +79,21 @@ const dropdown = document.getElementById("tshirt_type");
   }
 
 
+// JavaScript to handle image selection and updating the hidden input
+document.addEventListener("DOMContentLoaded", function() {
+  const tshirtOptions = document.querySelectorAll(".tshirt-type-option");
+  const tshirtTypeInput = document.getElementById("tshirt_type");
+
+  tshirtOptions.forEach(function(option) {
+      option.addEventListener("click", function() {
+          tshirtOptions.forEach(function(opt) {
+              opt.classList.remove("selected");
+          });
+          option.classList.add("selected");
+          tshirtTypeInput.value = option.getAttribute("data-value");
+      });
+  });
+});
 
 
 
