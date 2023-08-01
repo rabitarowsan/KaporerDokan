@@ -23,6 +23,8 @@ Route::get('/collections/{category_slug}', [FrontendController::class, 'products
 Route::get('/collections/{category_slug}/{product_slug}', [FrontendController::class, 'productView']);
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/tshirts/upload', [TShirtController::class, 'showForm'])->name('tshirt.upload');
+    Route::post('/tshirts/upload', [TShirtController::class, 'store'])->name('tshirt.store');
     Route::get('wishlist', [WishlistController::class, 'index']);
     Route::get('cart', [CartController::class, 'index']);
     Route::get('checkout', [CheckoutController::class, 'index']);
@@ -43,8 +45,7 @@ Route::post('/forgotpassword', [ForgotPasswordManager::class, 'forgotpasswordPos
 Route::get('/resetpassword/{token}', [ForgotPasswordManager::class, 'resetPassword'])->name('reset.password');
 Route::post('/resetpassword/{token}', [ForgotPasswordManager::class, 'resetPasswordPost'])->name('reset.password.post');
 
-Route::get('/tshirts/upload', [TShirtController::class, 'showForm'])->name('tshirt.upload');
-Route::post('/tshirts/upload', [TShirtController::class, 'store'])->name('tshirt.store');
+
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');

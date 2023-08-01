@@ -210,3 +210,43 @@ body {
     font-size: 26px;
   }
 }
+
+/* Custom dropdown container */
+.custom-dropdown {
+  position: relative;
+  width: 150px; /* Adjust the width as needed */
+}
+
+/* Selected option display */
+.selected-option {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Color option boxes */
+.color-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 5px 0;
+}
+
+.color-option {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 2px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Show the color options when the dropdown is active */
+.custom-dropdown.active .color-list {
+  display: block;
+}

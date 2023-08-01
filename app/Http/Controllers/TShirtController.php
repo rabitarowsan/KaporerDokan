@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TShirt;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
+use App\Models\ProductColor;
+use App\Models\TshirtOrders;
+use App\Models\TshirtPrints;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 
@@ -12,33 +12,41 @@ class TShirtController extends Controller
 {
     public function store(Request $request)
     {
-        $tshirt = new TShirt();
-        $tshirt->tshirt_type = $request->input('tshirt_type');
-        $tshirt->tshirt_length = $request->input('tshirt_length');
-        $tshirt->color1 = $request->input('color1');
-        $tshirt->color2 = $request->input('color2');
-        $tshirt->color3 = $request->input('color3');
-        $tshirt->print_positions = implode(',', $request->input('print_position'));
-
-        $uploadPath = 'uploads/customtshirt/';
-
-        if($request->hasFile('image')){
-
+        // Store TshirtOrder
+        $tshirtOrder = new TshirtOrders();
+        $tshirtOrder->user_id = auth()->user()->id; // Associate the order with the authenticated user
+        $tshirtOrder->tshirt_type = $request->input('tshirt_type');
+        $tshirtOrder->tshirt_length = $request->input('tshirt_length');
+        $tshirtOrder->color = $request->input('color'); // Update this to match your color field name
+        $tshirtOrder->print_positions = implode(',', $request->input('print_position'));
+        $tshirtOrder->user_text = $request->input('user_text');
+        $tshirtOrder->save();
+        
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
-            $file->move('uploads/customtshirt/', $filename);
-            $tshirt->image = $uploadPath.$filename;
+            $filename = time() . '.' . $ext;
+            $uploadPath = 'uploads/customtshirt/';
+            $file->move($uploadPath, $filename);
+    
+            $tshirtPrint = new TshirtPrints();
+            $tshirtPrint->tshirtorders_id = $tshirtOrder->id; // Associate the TshirtPrint with the corresponding TshirtOrder
+            $tshirtPrint->image = $uploadPath.$filename;
+            $tshirtPrint->save();
         }
+        
 
-        $tshirt->user_text = $request->input('user_text');
-        $tshirt->save();
+
+        
+
+        return redirect('/');
 
         // Redirect or perform additional actions as needed
     }
+
     public function showForm()
-        {
-            
-            return view('tshirts.upload');
-        }
+    {
+        $productColors = ProductColor::all();
+        return view('tshirts.upload', compact('productColors'));
+    }
 }

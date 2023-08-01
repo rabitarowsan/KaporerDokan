@@ -55,9 +55,9 @@
                                     <div class="col-md-2 col-7 my-auto">
                                         <div class="quantity">
                                             <div class="input-group">
-                                                <span class="btn btn1"><i class="fa fa-minus"></i></span>
+                                                <button type = "button" wire:loading.attr = "disabled" wire:click = "decrementQuantity({{$cartItem->id}})" class="btn btn1"><i class="fa fa-minus"></i></button>
                                                 <input type="text" value="{{ $cartItem->quantity }}" class="input-quantity" />
-                                                <span class="btn btn1"><i class="fa fa-plus"></i></span>
+                                                <button type = "button" wire:loading.attr = "disabled" wire:click = "incrementQuantity({{$cartItem->id}})" class="btn btn1"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
                                     </div>

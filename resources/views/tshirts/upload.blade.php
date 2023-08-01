@@ -1,14 +1,15 @@
-@extends('auth')
+@extends('layouts.auth')
 
-@section('title', "KaporerDokan-Home")
+@section('title', "Custom-Order")
+
 
 @section('content')
-    @include('include.header')
+    
     <!-- <link href="{{ asset('assets/css/t_style.css') }}" rel="stylesheet"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('assets/css/t_style.css') }}">
     
-  <form action="{{ route('tshirt.store') }}" method="POST">
+  <form action="{{ route('tshirt.store') }}" method="POST" enctype ="multipart/form-data">
   @csrf
   <div class="slide-form justify-content-center">
     <div class="slide-box">
@@ -32,9 +33,13 @@
           
 
           <div class="color-options pt-2 pb-1">
-            <label for="color">Choose a color:</label>
-            
-            <!-- Add more color options as needed -->
+              <label for="color">Choose a color:</label>
+              <select name="color" id="color">
+                  <option value="" selected disabled>Select a color</option>
+                  @foreach ($productColors as $productColor)
+                      <option value="{{ $productColor->color->name }}" style = "background-color: {{ $productColor->color->code }}">{{ $productColor->color->name }}</option>
+                  @endforeach
+              </select>
           </div>
           <div class="checkbox-list">
             <p>Choose your preferred position of the print: (Can choose multiple)</p>
@@ -67,7 +72,7 @@
           <div class="upload-options">
             <label>
               <h4>Upload your choice of print here:</h4>
-              <input type="file" class="image-upload" accept="image/*" name="image">
+              <input type="file" class="image-upload"  name="image" class="form-control">
             </label>
           </div>
         </div>

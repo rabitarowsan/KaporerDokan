@@ -19,8 +19,8 @@ class CheckoutShow extends Component
         return [
             'fullname' => 'required|string|max:100',
             'email' => 'required|email|max:100',
-            'phone' => 'required|integer|max:11',
-            'pincode' => 'required|integer|max:4|min:4',
+            'phone' => 'required|digits_between:10,11',
+            'pincode' => 'required|digits:4',
             'address' => 'required|string|max:100',
             
         ];    

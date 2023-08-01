@@ -39,11 +39,10 @@
       </a>
     </li>
     <li>
-      <a href="url('cart')">
-        <i class="fa fa-shopping-cart"></i>(<livewire:frontend.cart.cart-count />)
+      <a href="{{ url('cart') }}" >
+        <i class="fa fa-shopping-cart"></i> (<livewire:frontend.cart.cart-count />)
       </a>
     </li>
-            
         </ul>
         
         <div class="search">
