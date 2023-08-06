@@ -17,20 +17,20 @@
         <fieldset>
           <h2 class="fs-title text-center">Choose your preferred t-shirt type</h2>
           <div class="tshirt-type-options d-flex justify-content-around mt-4">
-                                    <div class="tshirt-type-option" data-value="basict">
-                                        <img src="{{ asset('uploads/tshirt/basict.png') }}" alt="Basic T-Shirt">
-                                    </div>
-                                    <div class="tshirt-type-option" data-value="polot">
-                                        <img src="{{ asset('uploads/tshirt/polot.png') }}" alt="Polo T-Shirt">
-                                    </div>
-                                    <div class="tshirt-type-option" data-value="dropt">
-                                        <img src="{{ asset('uploads/tshirt/dropt.png') }}" alt="Drop Shoulder">
-                                    </div>
-                                    <div class="tshirt-type-option" data-value="jerseyt">
-                                        <img src="{{ asset('uploads/tshirt/jerseyt.png') }}" alt="Jersey">
-                                    </div>
-                                </div>
-                                <input type="hidden" name="tshirt_type" id="tshirt_type" value="">
+                            <div class="tshirt-type-option" data-value="basict">
+                                <img src="{{ asset('uploads/tshirt/basict.png') }}" alt="Basic T-Shirt">
+                            </div>
+                            <div class="tshirt-type-option" data-value="polot">
+                                <img src="{{ asset('uploads/tshirt/polot.png') }}" alt="Polo T-Shirt">
+                            </div>
+                            <div class="tshirt-type-option" data-value="dropt">
+                                <img src="{{ asset('uploads/tshirt/dropt.png') }}" alt="Drop Shoulder">
+                            </div>
+                            <div class="tshirt-type-option" data-value="jerseyt">
+                                <img src="{{ asset('uploads/tshirt/jerseyt.png') }}" alt="Jersey">
+                            </div>
+                        </div>
+                        <input type="hidden" name="tshirt_type" id="tshirt_type" value="">
 
 
           <select name="tshirt_length" id="tshirt_length">
@@ -101,6 +101,20 @@
   
   </form>
 
+    <!-- Add this script to handle t-shirt type selection -->
+<script>
+    $(document).ready(function () {
+            $('.tshirt-type-option').on('click', function () {
+                const selectedType = $(this).attr('data-value');
+                $('#tshirt_type').val(selectedType);
+                $('.tshirt-type-option').not(this).hide();
+            });
+
+            $('.next').on('click', function () {
+                $('.tshirt-type-option').show();
+            });
+        });
+</script>
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>

@@ -30,27 +30,27 @@
                         <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label>Full Name</label>
-                                    <input type="text" wire:model="fullname" class="form-control" placeholder="Enter Full Name" />
+                                    <input type="text" wire:model.defer="fullname" class="form-control" placeholder="Enter Full Name" />
                                     @error('fullname') <small class = "text-danger"> {{ $message }}  </small> @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label>Phone Number</label>
-                                    <input type="number" wire:model="phone" class="form-control" placeholder="Enter Phone Number" />
+                                    <input type="number" wire:model.defer="phone" class="form-control" placeholder="Enter Phone Number" />
                                     @error('phone') <small class = "text-danger"> {{ $message }}  </small> @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label>Email Address</label>
-                                    <input type="email" wire:model="email" class="form-control" placeholder="Enter Email Address" />
+                                    <input type="email" wire:model.defer="email" class="form-control" placeholder="Enter Email Address" />
                                     @error('email') <small class = "text-danger"> {{ $message }}  </small> @enderror
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label>Pin-code (Zip-code)</label>
-                                    <input type="number" wire:model="pincode" class="form-control" placeholder="Enter Pin-code" />
+                                    <input type="number" wire:model.defer="pincode" class="form-control" placeholder="Enter Pin-code" />
                                     @error('pincode') <small class = "text-danger"> {{ $message }}  </small> @enderror
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <label>Full Address</label>
-                                    <textarea wire:model="address" class="form-control" rows="2"></textarea>
+                                    <textarea wire:model.defer="address" class="form-control" rows="2"></textarea>
                                     @error('address') <small class = "text-danger"> {{ $message }}  </small> @enderror
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -64,13 +64,19 @@
                                             <div class="tab-pane active show fade" id="cashOnDeliveryTab" role="tabpanel" aria-labelledby="cashOnDeliveryTab-tab" tabindex="0" >
                                                 <h6 >Cash on Delivery Mode</h6>
                                                 <hr/>
-                                                <button wire:click = "codOrder" style= "background: black; color: white;" type="button" class="btn btn-primary">Place Order (Cash on Delivery)</button>
+                                                <button wire:click = "codOrder" style= "background: black; color: white;" type="button" class="btn btn-primary">
+                                                    Place Order (Cash on Delivery)</button>
 
                                             </div>
                                             <div class="tab-pane fade" id="onlinePayment" role="tabpanel" aria-labelledby="onlinePayment-tab" tabindex="0">
                                                 <h6>Online Payment Mode</h6>
                                                 <hr/>
-                                                <button type="button" style= "background: black; color: white;"class="btn btn-warning">Pay Now (Online Payment)</button>
+                                                <button  class="btn btn-primary btn-lg btn-block" id="sslczPayBtn"
+                                                        token="if you have any token validation"
+                                                        postdata="your javascript arrays or objects which requires in backend"
+                                                        order="If you already have the transaction generated for current order"
+                                                        endpoint="{{ url('/pay-via-ajax') }}"> Pay Now
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -93,3 +99,16 @@
     </div>
 
 </div>
+@push('scripts')
+<script>
+    (function (window, document) {
+        var loader = function () {
+            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+            tag.parentNode.insertBefore(script, tag);
+        };
+
+        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    })(window, document);
+</script>
+@endpush

@@ -12,12 +12,141 @@ class CartShow extends Component
 
     public function incrementQuantity(int $cartId)
     {
-        $cartData = Cart::where('id', $cartId)->where('user_id')->first();
+        $cartData = Cart::where('id', $cartId)->where('user_id', auth()->user()->id)->first();
+        if($cartData)
+        {
+            if($cartData->productColor()->where('id', $cartData->product_color_id)->exists())
+            {
+                $productColor = $cartData->productColor()->where('id', $cartData->product_color_id)->first();
+                if($productColor->quantity > $cartData->quantity)
+                {
+                    $cartData->increment('quantity');
+                    $this->dispatchBrowserEvent('message',[
+                    'text' => 'Quantity Updated',
+                    'type' => 'notify',
+                    'status' => 200
+                ]);
+                }
+                else
+                {
+                    $this->dispatchBrowserEvent('message',[
+                    'text' => 'Only' .$productColor->quantity. 'Quantity Updated',
+                        'type' => 'notify',
+                        'status' => 200
+                    ]);
+                }
+            }
+            else
+            {
+                if($cartData->product->quantity > $cartData->quantity)
+                {
+                $cartData->increment('quantity');
+                $this->dispatchBrowserEvent('message',[
+                    'text' => 'Quantity Updated',
+                    'type' => 'notify',
+                    'status' => 200
+                ]);
+                }
+                else
+                {
+                    $this->dispatchBrowserEvent('message',[
+                    'text' => 'Only' .$cartData->product->quantity. 'Quantity Updated',
+                        'type' => 'notify',
+                        'status' => 200
+                    ]);
+                }   
+            }
+        }    
+        else
+        {
+            $this->dispatchBrowserEvent('message',[
+                'text' => 'Something Went Wrong!!',
+                'type' => 'notify',
+                'status' => 200
+            ]);
+        }
     }
     
-    public function decrementQuantity(int $cartItem)
+    public function decrementQuantity(int $cartId)
     {
-        
+        $cartData = Cart::where('id', $cartId)->where('user_id', auth()->user()->id)->first();
+        if($cartData)
+        {
+            if($cartData->productColor()->where('id', $cartData->product_color_id)->exists())
+            {
+                $productColor = $cartData->productColor()->where('id', $cartData->product_color_id)->first();
+                if($productColor->quantity > $cartData->quantity)
+                {
+                    $cartData->decrement('quantity');
+                    $this->dispatchBrowserEvent('message',[
+                    'text' => 'Quantity Updated',
+                    'type' => 'notify',
+                    'status' => 200
+                ]);
+                }
+                else
+                {
+                    $this->dispatchBrowserEvent('message',[
+                    'text' => 'Only' .$productColor->quantity. 'Quantity Updated',
+                        'type' => 'notify',
+                        'status' => 200
+                    ]);
+                }
+            }
+            else
+            {
+                if($cartData->product->quantity > $cartData->quantity)
+                {
+                $cartData->decrement('quantity');
+                $this->dispatchBrowserEvent('message',[
+                    'text' => 'Quantity Updated',
+                    'type' => 'notify',
+                    'status' => 200
+                ]);
+                }
+                else
+                {
+                    $this->dispatchBrowserEvent('message',[
+                    'text' => 'Only' .$cartData->product->quantity. 'Quantity Updated',
+                        'type' => 'notify',
+                        'status' => 200
+                    ]);
+                }   
+            }
+        }    
+        else
+        {
+            $this->dispatchBrowserEvent('message',[
+                'text' => 'Something Went Wrong!!',
+                'type' => 'notify',
+                'status' => 200
+            ]);
+        }
+    }
+
+    public function removeCartItem(int $cartId)
+    {
+        $cartRemoveData = Cart::where('user_id', auth()->user()->id)->where('id', $cartId)->first();
+        if($cartRemoveData)
+        {
+            $cartRemoveData->delete();
+
+            $this->emit('CartAddedUpdated');
+            $this->dispatchBrowserEvent('message',[
+                'text' => 'Removed Product From Cart!!',
+                'type' => 'notify',
+                'status' => 200
+            ]);
+
+        }
+        else
+        {
+            $this->dispatchBrowserEvent('message',[
+                'text' => 'Something Went Wrong!!',
+                'type' => 'notify',
+                'status' => 500
+            ]);  
+        }
     }
 
     public function render()

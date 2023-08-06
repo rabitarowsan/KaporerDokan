@@ -26,11 +26,13 @@
       @endauth
     </a>
     <ul class="dropdown-menu user-dropdown-menu">
+    <li><a href="{{url('orders') }}">Orders</a></li>
       @auth
         <li><a href="{{ route('logout') }}">Logout</a></li>
       @else
         <li><a href="{{ route('register') }}">Login/Register</a></li>
       @endauth
+      
     </ul>
   </li>
     <li>

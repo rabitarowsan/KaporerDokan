@@ -68,7 +68,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr@3.5.1/dist/pickr.min.js"></script>
     <!-- End custom js for this page-->
 
-    @yeild('scripts')
+    
     @livewireScripts
     @stack('script')
     

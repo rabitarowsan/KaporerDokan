@@ -95,5 +95,16 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+$(document).ready(function () {
+  $('.tshirt-type-option').on('click', function () {
+      const selectedType = $(this).attr('data-value');
+      $('#tshirt_type').val(selectedType);
+      $('.tshirt-type-option').not(this).hide();
+  });
+
+  $('.next').on('click', function () {
+      $('.tshirt-type-option').show();
+  });
+});
 
 

@@ -12,6 +12,14 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('admin/orders') }}">
+              <i class="mdi mdi-sale menu-icon"></i>
+              <span class="menu-title">Orders</span>
+            </a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#category" aria-expanded="false" aria-controls="category">
               <i class="mdi mdi-circle-outline menu-icon"></i>

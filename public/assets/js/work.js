@@ -20,3 +20,5 @@ function closePopup(popupId) {
   var popup = document.getElementById(popupId);
   popup.classList.remove("open-popup");
 }
+
+

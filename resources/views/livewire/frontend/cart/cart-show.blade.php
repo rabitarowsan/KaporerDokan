@@ -13,11 +13,14 @@
                                 <div class="col-md-6">
                                     <h4>Products</h4>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <h4>Price</h4>
                                 </div>
                                 <div class="col-md-2">
                                     <h4>Quantity</h4>
+                                </div>
+                                <div class="col-md-1">
+                                    <h4>Total</h4>
                                 </div>
                                 <div class="col-md-2">
                                     <h4>Remove</h4>
@@ -48,24 +51,28 @@
                                             </label>
                                         </a>
                                     </div>
-                                    <div class="col-md-2 my-auto">
-                                        <label class="price">${{$cartItem->product->selling_price * $cartItem->quantity}} </label>
-                                        @php $totalPrice += $cartItem->product->selling_price * $cartItem->quantity @endphp
+                                    <div class="col-md-1 my-auto">
+                                        <label class="price">${{$cartItem->product->selling_price}} </label>
+                                        
                                     </div>
                                     <div class="col-md-2 col-7 my-auto">
                                         <div class="quantity">
                                             <div class="input-group">
                                                 <button type = "button" wire:loading.attr = "disabled" wire:click = "decrementQuantity({{$cartItem->id}})" class="btn btn1"><i class="fa fa-minus"></i></button>
                                                 <input type="text" value="{{ $cartItem->quantity }}" class="input-quantity" />
-                                                <button type = "button" wire:loading.attr = "disabled" wire:click = "incrementQuantity({{$cartItem->id}})" class="btn btn1"><i class="fa fa-plus"></i></button>
+                                                <button type = "button" wire:loading.attr="disabled" wire:click = "incrementQuantity({{$cartItem->id}})" class="btn btn1"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-1 my-auto">
+                                        <label class="price">${{$cartItem->product->selling_price * $cartItem->quantity}} </label>
+                                        @php $totalPrice += $cartItem->product->selling_price * $cartItem->quantity @endphp
+                                    </div>
                                     <div class="col-md-2 col-5 my-auto">
                                         <div class="remove">
-                                            <a href="" class="btn btn-danger btn-sm">
+                                            <button type="button" wire:loading.attr="disabled" wire:click = "removeCartItem({{ $cartItem->id }})" class="btn btn-danger btn-sm">
                                                 <i class="fa fa-trash"></i> Remove
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

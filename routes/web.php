@@ -10,10 +10,12 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 
 
@@ -28,8 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('wishlist', [WishlistController::class, 'index']);
     Route::get('cart', [CartController::class, 'index']);
     Route::get('checkout', [CheckoutController::class, 'index']);
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::get('orders/{orderId}', [OrderController::class, 'show']);
 });
 
+Route::get('thank-you', [FrontendController::class, 'thankyou']);
 
 Route::get('/login', [AuthManager::class, 'login'])->name('login');
 Route::post('/login', [AuthManager::class, 'loginPost'])->name('login.post');
@@ -95,6 +100,31 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], functio
 
 
 });
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'isAdmin']], function () {
+    Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index']);
+    Route::get('/orders/{orderId}', [\App\Http\Controllers\Admin\OrderController::class, 'show']);
+    Route::put('/orders/{orderId}', [\App\Http\Controllers\Admin\OrderController::class, 'updateOrderStatus']);
+    Route::get('/invoice/{orderId}', [\App\Http\Controllers\Admin\OrderController::class, 'viewInvoice']);
+    Route::get('/invoice/{orderId}/generate', [\App\Http\Controllers\Admin\OrderController::class, 'generateInvoice']);
+    
+});
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay-online', [SslCommerzPaymentController::class, 'payOnline'])->middleware('auth');
+Route::post('/payment/success', [SslCommerzPaymentController::class, 'paymentSuccess']);
+
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 
 
 

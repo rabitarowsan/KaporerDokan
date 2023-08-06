@@ -7,12 +7,13 @@ use App\Models\Order;
 use Livewire\Component;
 use App\Models\Orderitem;
 use Illuminate\Support\Str;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 class CheckoutShow extends Component
 {
     public $carts, $totalProductAmount = 0;
 
-    public $fullname, $email, $phone, $pincode, $address, $payment_mode = NULL, $payment_id = NULL;
+    public $fullname, $email, $phone, $pincode, $address, $payment_mode = NULL, $payment_id = NULL, $paymentOptions = [];
 
     public function rules() 
     {
@@ -54,6 +55,16 @@ class CheckoutShow extends Component
                 'quantity' =>  $cartItem->quantity,
                 'price' => $cartItem->product->selling_price
             ]);
+
+            if($cartItem->product_color_id != NULL)
+            {
+                $cartItem->productColor()->where('id', $cartItem->product_color_id)->decrement('quantity', $cartItem->quantity);
+            }
+            else
+            {
+                $cartItem->product()->where('id', $cartItem->product_id)->decrement('quantity', $cartItem->quantity);
+            }
+
         }
 
         return $order;
@@ -62,6 +73,41 @@ class CheckoutShow extends Component
         
     }
 
+
+    public function payOnline()
+    {
+        // Prepare the data required for payment
+        $postData = [
+            'fullname' => $this->fullname,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'pincode' => $this->pincode,
+            'address' => $this->address,
+            // ... other fields as needed
+        ];
+
+        // Make an HTTP POST request to the SslCommerzPaymentController
+        $response = Http::post(url('/pay-via-ajax'), $postData);
+
+        // Check if the payment response is successful
+        if ($response->successful()) {
+            // Redirect to the payment gateway or handle the response as needed
+            // For example:
+            $paymentUrl = $response->json()['redirect_url'];
+            return redirect()->away($paymentUrl);
+        } else {
+            // Handle payment failure
+            // For example:
+            $error = $response->json()['message'];
+            $this->dispatchBrowserEvent('message', [
+                'text' => 'Payment Failed: ' . $error,
+                'type' => 'error',
+                'status' => 400
+            ]);
+        }
+    }
+    
+
     public function codOrder()
     {
         $this->payment_mode = 'Cash on Delivery';
@@ -69,6 +115,7 @@ class CheckoutShow extends Component
         if ($codOrder) 
         {
             Cart::where('user_id', auth()->user()->id)->delete();
+            
             $this->dispatchBrowserEvent('message', [
                 'text' => 'Order Placed Successfully',
                 'type' => 'notify',
@@ -89,6 +136,7 @@ class CheckoutShow extends Component
 
     public function totalProductAmount()
     {
+        $this->totalProductAmount = 0;
         $this->carts = Cart::where('user_id', auth()->user()->id)->get();
         foreach ($this->carts as  $cartItem) 
         {
@@ -99,7 +147,7 @@ class CheckoutShow extends Component
 
     public function render()
     {
-        $this->totalProductAmount();
+        $this->totalProductAmount = $this->totalProductAmount();
 
         $this->fullname = auth()->user()->name;
         $this->email = auth()->user()->email;
