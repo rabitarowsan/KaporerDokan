@@ -53,7 +53,91 @@
           </div>
         </div>
       </main>
-    
+    <div class = "py-5 bg-white">
+      <div class="container">
+        <div class="row justify-content-center">
+        <div class="col-md-8">
+          <h4> Welcome </h4>
+          <div class="underline"></div>
+          <p>
+            Welcome to KaporerDokan
+          </p>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class = "py-5 bg-white">
+      <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+          <h4> trending </h4>
+          <div class="underline"></div>
+        </div>
+
+        @if($trendingProducts)
+            <div class="col-md-12">
+              @foreach ($trendingProducts as $productItem)
+                          <div class="col-md-4">
+                                  <div class="product-card">
+                                      <div class="product-card-img">
+                                          
+                                          <label class="stock" style="background-color: black; color: white; border-radius: 4px; padding: 2px 12px; margin: 8px; font-size: 12px;">New</label>
+                                          
+
+                                          @if($productItem->productImages->count() > 0)
+                                          <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" style="color: black;">
+                                          <div style="width: 200px; height: 200px; overflow: hidden;">
+                                              <img src="{{ asset($productItem->productImages[0]->image) }}" alt="{{ $productItem->name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                          </div>
+                                          </a>
+
+                                          @endif
+
+                                      </div>
+                                      <div class="product-card-body">
+                                          <p class="product-brand">
+                                              @if($productItem->brand)
+                                                  {{ $productItem->brand }}
+                                              @else
+                                                  Unknown Brand
+                                              @endif
+                                          </p>
+                                          <h5 class="product-name" style = "color: black;">
+                                            <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" style = "color: black;">
+                                                  {{ $productItem->name }} 
+                                            </a>
+                                          </h5>
+                                          <div>
+                                              <span class="selling-price">${{ $productItem->selling_price }}</span>
+                                              @if($productItem->original_price > $productItem->selling_price)
+                                                  <span class="original-price">${{ $productItem->original_price }}</span>
+                                              @endif
+                                          </div>
+                                          <div class="mt-2">
+                                              <a href="" class="btn btn1">Add To Cart</a>
+                                              <a href = "">  <i class="fa fa-heart"></i> </a>
+                                              <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" class="btn btn1"> View </a>
+                                          </div>
+                                      </div>
+                                  </div>
+                          </div>
+                          
+                        
+              @endforeach
+            
+
+            </div>
+        @else
+            <div class="col-md-12">
+                            <div class="p-2">
+                                <h4>No Products Available }</h4>
+                            </div>
+                        </div>
+                        @endif
+            </div>
+      </div>
+    </div>
+
 
 </body>
       
