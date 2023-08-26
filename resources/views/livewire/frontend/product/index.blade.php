@@ -32,50 +32,47 @@
             <div class="row">
                 @forelse ($products as $productItem)
                     <div class="col-md-4">
-                            <div class="product-card">
-                                <div class="product-card-img">
-                                    @if($productItem->quantity > 0)
-                                    <label class="stock" style="background-color: black; color: white; border-radius: 4px; padding: 2px 12px; margin: 8px; font-size: 12px;">In Stock</label>
-                                    @else
-                                    <label class="stock" style="background-color: grey; color: white; border-radius: 4px; padding: 2px 12px; margin: 8px; font-size: 12px;">Out of Stock</label>
-                                    @endif
-
-                                    @if($productItem->productImages->count() > 0)
-                                    <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" style="color: black;">
-                                    <div style="width: 200px; height: 200px; overflow: hidden;">
-                                        <img src="{{ asset($productItem->productImages[0]->image) }}" alt="{{ $productItem->name }}" style="width: 100%; height: 100%; object-fit: cover;">
-                                    </div>
-                                    </a>
-
-                                    @endif
-
+                        <div class="product-card">
+                            <div class="product-card-img">
+                                @if($productItem->quantity > 0)
+                                <label class="stock" style="background-color: black; color: white; border-radius: 4px; padding: 2px 12px; margin: 8px; font-size: 12px;">In Stock</label>
+                                @else
+                                <label class="stock" style="background-color: grey; color: white; border-radius: 4px; padding: 2px 12px; margin: 8px; font-size: 12px;">Out of Stock</label>
+                                @endif
+                                @if($productItem->productImages->count() > 0)
+                                <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" style="color: black;">
+                                <div>
+                                    <img src="{{ asset($productItem->productImages[0]->image) }}" alt="{{ $productItem->name }}" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
-                                <div class="product-card-body">
-                                    <p class="product-brand">
-                                        @if($productItem->brand)
-                                            {{ $productItem->brand }}
-                                        @else
-                                            Unknown Brand
-                                        @endif
-                                    </p>
-                                    <h5 class="product-name" style = "color: black;">
-                                       <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" style = "color: black;">
-                                            {{ $productItem->name }} 
-                                       </a>
-                                    </h5>
-                                    <div>
-                                        <span class="selling-price">${{ $productItem->selling_price }}</span>
-                                        @if($productItem->original_price > $productItem->selling_price)
-                                            <span class="original-price">${{ $productItem->original_price }}</span>
-                                        @endif
-                                    </div>
-                                    <div class="mt-2">
-                                        <a href="" class="btn btn1">Add To Cart</a>
-                                        <a href = "">  <i class="fa fa-heart"></i> </a>
-                                        <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" class="btn btn1"> View </a>
-                                    </div>
+                                </a>
+                                @endif
+                            </div>
+                            <div class="product-card-body">
+                                <p class="product-brand">
+                                    @if($productItem->brand)
+                                        {{ $productItem->brand }}
+                                    @else
+                                        Unknown Brand
+                                    @endif
+                                </p>
+                                <h5 class="product-name" style = "color: black;">
+                                   <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" style = "color: black;">
+                                        {{ $productItem->name }} 
+                                   </a>
+                                </h5>
+                                <div>
+                                    <span class="selling-price">${{ $productItem->selling_price }}</span>
+                                    @if($productItem->original_price > $productItem->selling_price)
+                                        <span class="original-price">${{ $productItem->original_price }}</span>
+                                    @endif
+                                </div>
+                                <div class="mt-2">
+                                    <a href="" class="btn btn1">Add To Cart</a>
+                                    <a href = "">  <i class="fa fa-heart" style = "color:#000;"></i> </a>
+                                    <a href="{{ url('/collections/'.$productItem->category->slug.'/'.$productItem->slug) }}" class="btn btn1"> View </a>
                                 </div>
                             </div>
+                        </div>
                     </div>
                     @empty
                     <div class="col-md-12">

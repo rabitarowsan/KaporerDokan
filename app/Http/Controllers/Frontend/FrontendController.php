@@ -2,19 +2,41 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
 use App\Models\Slider;
+use App\Models\Product;
+use App\Models\Category;
+use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     public function index()
     {
         $sliders = Slider::where('status', '0')->get();
-        return view('frontend.index', compact('sliders'));
+        $trendingProducts = Product::where('trending', '1')->latest()->take(10)->get();
+        return view('frontend.index', compact('sliders','trendingProducts'));
     }
+
+    public function searchProducts(Request $request)
+    {
+      if($request->search)
+      {
+        $searchProducts = Product::where('name', 'LIKE', '%'.$request->search.'%')->latest()->paginate(15);
+        return view('frontend.pages.search', compact('searchProducts'));
+      }
+      else
+      {
+        return redirect()->back()->with('message', 'Empty Search');
+      }
+    }
+    public function newArrival()
+    {
+        $newArrivalsProducts = Product::latest()->take(16)->get();
+        return view('frontend.pages.new-arrival', compact('newArrivalsProducts'));
+
+    }
+
 
     public function categories()
     {
@@ -63,5 +85,5 @@ class FrontendController extends Controller
       return view('frontend.thank-you');
     }
 
-
+    
 }

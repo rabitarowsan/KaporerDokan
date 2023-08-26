@@ -1,7 +1,49 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/h_style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+      #wrap {
+  margin: 50px 100px;
+  display: inline-block;
+  position: relative;
+  height: 60px;
+  float: right;
+  padding: 0;
+  position: relative;
+}
 
+input[type="text"] {
+  height: 60px;
+  font-size: 55px;
+  display: inline-block;
+  font-family: "Lato";
+  font-weight: 100;
+  border: none;
+  outline: none;
+  color: #555;
+  padding: 3px;
+  padding-right: 60px;
+  width: 0px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  z-index: 3;
+  transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+  cursor: pointer;
+}
+
+input[type="text"]:focus:hover {
+  border-bottom: 1px solid #BBB;
+}
+
+input[type="text"]:focus {
+  width: 700px;
+  z-index: 1;
+  border-bottom: 1px solid #BBB;
+  cursor: text;
+}
+    </style>
 
     <header>
     <a href="{{ url('/')}}" class="logo">Kaporer Dokan</a>
@@ -46,19 +88,19 @@
       </a>
     </li>
         </ul>
-        
+        <div class="wrap">
         <div class="search">
-            <span class="icon">
-            <ion-icon name="search-outline" class ="searchBtn"></ion-icon>
-            <ion-icon name="close-outline" class ="closeBtn"></ion-icon>
-            </span>
+        <form action="{{ url('search') }}" method="GET" role="search">
+          <div class="input-group">
+            <input type="search" name="search" value= "{{ Request::get('search') }}" placeholder="Search for products" class="form-control">
+            <button class="btn bg-white" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </form>    
         </div>
-        <ion-icon name="menu-outline" class="menuToggle"></ion-icon>
-        
-    </div>
-    <div class="searchBox">
-        <input type="text" placeholder = "Search here...">
-    </div>
+        </div>
+    
     </header>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
