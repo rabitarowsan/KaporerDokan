@@ -17,20 +17,20 @@
         <fieldset>
           <h2 class="fs-title text-center">Choose your preferred t-shirt type</h2>
           <div class="tshirt-type-options d-flex justify-content-around mt-4">
-                            <div class="tshirt-type-option" data-value="basict">
-                                <img src="{{ asset('uploads/tshirt/basict.png') }}" alt="Basic T-Shirt">
-                            </div>
-                            <div class="tshirt-type-option" data-value="polot">
-                                <img src="{{ asset('uploads/tshirt/polot.png') }}" alt="Polo T-Shirt">
-                            </div>
-                            <div class="tshirt-type-option" data-value="dropt">
-                                <img src="{{ asset('uploads/tshirt/dropt.png') }}" alt="Drop Shoulder">
-                            </div>
-                            <div class="tshirt-type-option" data-value="jerseyt">
-                                <img src="{{ asset('uploads/tshirt/jerseyt.png') }}" alt="Jersey">
-                            </div>
-                        </div>
-                        <input type="hidden" name="tshirt_type" id="tshirt_type" value="">
+    <div class="tshirt-type-option" data-value="basict">
+        <img src="{{ asset('uploads/tshirt/basict.png') }}" alt="Basic T-Shirt">
+    </div>
+    <div class="tshirt-type-option" data-value="polot">
+        <img src="{{ asset('uploads/tshirt/polot.png') }}" alt="Polo T-Shirt">
+    </div>
+    <div class="tshirt-type-option" data-value="dropt">
+        <img src="{{ asset('uploads/tshirt/dropt.png') }}" alt="Drop Shoulder">
+    </div>
+    <div class="tshirt-type-option" data-value="jerseyt">
+        <img src="{{ asset('uploads/tshirt/jerseyt.png') }}" alt="Jersey">
+    </div>
+</div>
+<input type="hidden" name="tshirt_type" id="tshirt_type" value="">
 
 
           <select name="tshirt_length" id="tshirt_length">
@@ -42,14 +42,17 @@
           
 
           <div class="color-options pt-2 pb-1">
-              <label for="color">Choose a color:</label>
-              <select name="color" id="color">
-                  <option value="" selected disabled>Select a color</option>
-                  @foreach ($productColors as $productColor)
-                      <option value="{{ $productColor->color->name }}" style = "background-color: {{ $productColor->color->code }}">{{ $productColor->color->name }}</option>
-                  @endforeach
-              </select>
-          </div>
+    <label for="color">Choose a color:</label>
+    <div class="color-boxes" id="color-boxes">
+        @foreach ($productColors as $productColor)
+            <div class="color-box" data-value="{{ $productColor->color->name }}" style="background-color: {{ $productColor->color->code }}">
+                
+            </div>
+        @endforeach
+    </div>
+    <input type="hidden" name="color" id="color">
+</div>
+
           <div class="checkbox-list">
             <p>Choose your preferred position of the print: (Can choose multiple)</p>
             <label for="front">
@@ -116,6 +119,47 @@
         });
 </script>
 
+<script>
+    const tshirtOptions = document.querySelectorAll('.tshirt-type-option');
+    const hiddenInput = document.getElementById('tshirt_type');
+
+    tshirtOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const selectedValue = option.getAttribute('data-value');
+
+            // Hide all options except the selected one
+            tshirtOptions.forEach(otherOption => {
+                if (otherOption.getAttribute('data-value') !== selectedValue) {
+                    otherOption.style.display = 'none';
+                }
+            });
+
+            // Set the selected value to the hidden input
+            hiddenInput.value = selectedValue;
+        });
+    });
+</script>
+
+<script>
+  const colorBoxes = document.querySelectorAll('.color-box');
+const hiddenColorInput = document.getElementById('color');
+
+colorBoxes.forEach(box => {
+    box.addEventListener('click', () => {
+        const selectedValue = box.getAttribute('data-value');
+        
+        colorBoxes.forEach(otherBox => {
+            if (otherBox.getAttribute('data-value') !== selectedValue) {
+                otherBox.style.display = 'none';
+            }
+        });
+
+        box.classList.add('selected');
+        hiddenColorInput.value = selectedValue;
+    });
+});
+
+</script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>

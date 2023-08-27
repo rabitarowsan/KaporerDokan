@@ -271,3 +271,25 @@ body {
   border-color: blue; /* Add a border color to indicate selection */
 }
 
+
+.color-boxes {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.color-box {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.color-box.selected {
+  border-width: 2px;
+}
+
+
