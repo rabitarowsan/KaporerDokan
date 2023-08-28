@@ -10,6 +10,7 @@
           <main>
             @yield('content')
           </main>
+          @include('layouts.inc.frontend.footer')
         </div>
     </body>
 

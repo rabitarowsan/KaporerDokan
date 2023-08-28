@@ -10,7 +10,8 @@
                 <div class=" col-md-5 mt-3">
                     <div class="pt-50 bg-white border">
                         @if($product->productImages)
-                        <img src="{{ asset($product->productImages[0]->image) }}" class="w-100" alt="Img">
+                        <img src="{{ asset($product->productImages[0]->image) }}" class="w-100" alt="Img"> 
+                        
                         @else
                         No Image Available 
                         @endif

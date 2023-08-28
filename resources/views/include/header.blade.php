@@ -13,7 +13,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('/collections') }}">Category</a></li>
                         <li><a href="{{ url('/new-arrivals') }}">New Arrivals</a></li>
-                        <li><a href="{{ url('') }}">Featured Products</a></li>    
+                        <li><a href="{{ url('/featured-products') }}">Featured Products</a></li>    
                     </ul>
                 </li>
             <li><a href="{{route('tshirt.upload')}}">Custom Order</a></li>

@@ -23,6 +23,9 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/collections', [FrontendController::class, 'categories']);
 Route::get('/collections/{category_slug}', [FrontendController::class, 'products']);
 Route::get('/collections/{category_slug}/{product_slug}', [FrontendController::class, 'productView']);
+Route::get('/new-arrivals', [FrontendController::class, 'newArrival']);
+Route::get('/featured-products', [FrontendController::class, 'featuredProducts']);
+
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/tshirts/upload', [TShirtController::class, 'showForm'])->name('tshirt.upload');

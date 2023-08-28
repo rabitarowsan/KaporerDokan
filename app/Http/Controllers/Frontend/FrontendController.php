@@ -10,10 +10,23 @@ use App\Models\Slider;
 
 class FrontendController extends Controller
 {
-    public function index()
+  public function index()
+  {
+      $sliders = Slider::where('status', '0')->get();
+      $trendingProducts = Product::where('trending','1')->latest()->take('7')->get();
+      return view('frontend.index', compact('sliders','trendingProducts'));
+  }
+
+    public function newArrival()
     {
-        $sliders = Slider::where('status', '0')->get();
-        return view('frontend.index', compact('sliders'));
+      $newArrivalProducts = Product::latest()->take(3)->get();
+      return view('frontend.pages.new-arrival',compact('newArrivalProducts'));
+    }
+
+    public function featuredProducts()
+    {
+      $featuredProducts = Product::where('featured','1')->latest()->get();
+      return view('frontend.pages.featured-products',compact('featuredProducts'));
     }
 
     public function categories()

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 
     
+
+    
     <title>@yield('title', 'KaporerDokan')</title>
 
     <meta name="description" content="@yield('meta_description')">

@@ -139,6 +139,12 @@
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
+                            <label for="">Featured</label>
+                            <input type="checkbox" name = "featured" {{ $product->featured == '1' ? 'checked': '' }} style = "width:50px; height:50px;" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
                             <label for="">Status</label>
                             <input type="checkbox" name = "status" {{ $product->status == '1' ? 'checked': '' }} style = "width:50px; height:50px;" />
                         </div>
